@@ -145,6 +145,33 @@ describe('CspHtmlWebpackPlugin', () => {
       });
     });
 
+    it('inserts the default policy, including sha-256 hashes of other inline scripts and styles found, and nonce hashes of external scripts found using data-csp="script-src" directive', (done) => {
+      const config = createWebpackConfig([
+        new HtmlWebpackPlugin({
+          filename: path.join(WEBPACK_OUTPUT_DIR, 'index.html'),
+          template: path.join(
+            __dirname,
+            'test-utils',
+            'fixtures',
+            'with-preload-script-and-style.html'
+          ),
+        }),
+        new CspHtmlWebpackPlugin(),
+      ]);
+
+      webpackCompile(config, (csps) => {
+        const expected =
+          "base-uri 'self';" +
+          " object-src 'none';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
+          " style-src 'unsafe-inline' 'self' 'unsafe-eval'";
+
+        expect(csps['index.html']).toEqual(expected);
+
+        done();
+      });
+    });
+
     it('inserts hashes for linked scripts and styles from the same Webpack build', (done) => {
       const config = createWebpackConfig(
         [
