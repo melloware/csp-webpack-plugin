@@ -137,7 +137,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'";
 
         expect(csps['index.html']).toEqual(expected);
@@ -178,7 +178,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-IDmpTcnLo5Niek0rbHm9EEQtYiqYHApvDU+Rta9RdVU=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ONKc+kazxzSwrQG4njh3gePrJ6Is6dtQOjUrLjjBm5Q=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-bFK7QzTObijstzDDaq2yN82QIYcoYx/EDD87NWCGiPw=' 'nonce-mockedbase64string-3' 'nonce-mockedbase64string-4'";
 
         expect(csps['index.html']).toEqual(expected);
@@ -238,12 +238,12 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected1 =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-Y3RBVJzjgMLd/3xbsXMQc/ZEfadYzG3ndisG/ogf+jQ=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-x8reN2YU8u8LKMaI+u25btMBUBCbLJpUTiBmcIMLeo4=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-3'";
         const expected2 =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-npoLW6kyIiQHrDdOzxWCi7oMbea1fUsMVFlclhuByTY=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-QRQLWLUUaIB2gEwfhH+pg0OG87mZ1kh6ZEPQpuxtg8c=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-6'";
 
         expect(csps['index-1.html']).toEqual(expected1);
@@ -276,7 +276,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self' https://slack.com;" +
           " object-src 'none';" +
-          " script-src 'self' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+          " script-src 'self' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
           " style-src 'self';" +
           " font-src 'self' 'https://a-slack-edge.com';" +
           " connect-src 'self'";
@@ -307,7 +307,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'self' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
+          " script-src 'self' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
           " style-src 'self' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'";
 
         expect(csps['index.html']).toEqual(expected);
@@ -445,7 +445,7 @@ describe('CspHtmlWebpackPlugin', () => {
           const expected =
             "base-uri 'self' https://slack.com;" +
             " object-src 'none';" +
-            " script-src 'self' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+            " script-src 'self' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
             " style-src 'self';" +
             " font-src 'self' 'https://a-slack-edge.com';" +
             " connect-src 'self'";
@@ -484,7 +484,7 @@ describe('CspHtmlWebpackPlugin', () => {
           const expected =
             "base-uri 'self' https://slack.com;" + // this should be included as it's not defined in the HtmlWebpackPlugin instance
             " object-src 'none';" + // this comes from the default policy
-            " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" + // this comes from the default policy
+            " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" + // this comes from the default policy
             " style-src 'unsafe-inline' 'self' 'unsafe-eval';" + // this comes from the default policy
             " font-src 'https://a-slack-edge.com' 'https://b-slack-edge.com'"; // this should only include the HtmlWebpackPlugin instance policy
 
@@ -526,13 +526,13 @@ describe('CspHtmlWebpackPlugin', () => {
           const expectedCustom =
             "base-uri 'self';" +
             " object-src 'none';" +
-            " script-src 'https://a-slack-edge.com' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+            " script-src 'https://a-slack-edge.com' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
             " style-src 'https://b-slack-edge.com'";
 
           const expectedDefault =
             "base-uri 'self';" +
             " object-src 'none';" +
-            " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-2';" +
+            " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-2';" +
             " style-src 'unsafe-inline' 'self' 'unsafe-eval'";
 
           expect(csps['index-csp.html']).toEqual(expectedCustom);
@@ -580,7 +580,7 @@ describe('CspHtmlWebpackPlugin', () => {
         scripts.each((i, script) => {
           if (!script.attribs.src.startsWith('http')) {
             expect(script.attribs.integrity).toEqual(
-              'sha256-IDmpTcnLo5Niek0rbHm9EEQtYiqYHApvDU+Rta9RdVU='
+              'sha256-ONKc+kazxzSwrQG4njh3gePrJ6Is6dtQOjUrLjjBm5Q='
             );
           } else {
             expect(script.attribs.integrity).toBeUndefined();
@@ -731,13 +731,13 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected1 =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ='";
 
         const expected2 =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ='";
 
         // no nonces in either one of the script-src or style-src policies
@@ -787,7 +787,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expectedHashes =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-6'";
 
         // no hashes in index-no-hashes script-src or style-src policies
@@ -831,13 +831,13 @@ describe('CspHtmlWebpackPlugin', () => {
         const expectedNoNonce =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ='";
 
         const expectedNonce =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'";
 
         // no nonce in index-no-nonce script-src or style-src policies
@@ -990,7 +990,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval'";
 
         expect(csps['index.html']).toEqual(expected);
@@ -1016,7 +1016,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval'";
 
         expect(csps['index.html']).toEqual(expected);
@@ -1036,7 +1036,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval'";
 
         expect(csps['index.html']).toEqual(expected);
@@ -1074,7 +1074,7 @@ describe('CspHtmlWebpackPlugin', () => {
   describe('Custom process function', () => {
     it('Allows the process function to be overwritten', (done) => {
       const processFn = jest.fn();
-      const builtPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'`;
+      const builtPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'`;
 
       const config = createWebpackConfig([
         new HtmlWebpackPlugin({
@@ -1113,8 +1113,8 @@ describe('CspHtmlWebpackPlugin', () => {
 
     it('only overwrites the processFn for the HtmlWebpackInstance where it has been defined', (done) => {
       const processFn = jest.fn();
-      const index1BuiltPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'`;
-      const index2BuiltPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-6'`;
+      const index1BuiltPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'`;
+      const index2BuiltPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-6'`;
 
       const config = createWebpackConfig([
         new HtmlWebpackPlugin({
@@ -1168,7 +1168,7 @@ describe('CspHtmlWebpackPlugin', () => {
       ) {
         compilation.emitAsset('csp.conf', new RawSource(builtPolicy));
       }
-      const index1BuiltPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'`;
+      const index1BuiltPolicy = `base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-ixjZMYNfWQWawUHioWOx2jBsTmfxucX7IlwsMt2jWvc=' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2'; style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-MqG77yUiqBo4MMVZAl09WSafnQY4Uu3cSdZPKxaf9sQ=' 'nonce-mockedbase64string-3'`;
 
       const config = createWebpackConfig([
         new HtmlWebpackPlugin({
@@ -1246,7 +1246,7 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1';" +
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1';" +
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-JUH8Xh1Os2tA1KU3Lfxn5uZXj2Q/a/i0UVMzpWO4uOU='";
 
         expect(csps['index.html']).toEqual(expected);
@@ -1287,7 +1287,7 @@ describe('CspHtmlWebpackPlugin', () => {
 
         // csp has been added in
         expect(xhtmlContents).toContain(
-          `<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-J7wa7HNc5Nb9SvdpRj1UEzZlXOJERU6Mw8r5DSsL1Go=' 'nonce-mockedbase64string-1'; style-src 'unsafe-inline' 'self' 'unsafe-eval'"/>`
+          `<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-KVG04gIa9IzLa9b0DDTqvs094oW1SAj0foq6gXntF9A=' 'nonce-mockedbase64string-1'; style-src 'unsafe-inline' 'self' 'unsafe-eval'"/>`
         );
 
         done();
