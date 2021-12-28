@@ -304,7 +304,6 @@ class CspHtmlWebpackPlugin {
       return [];
     }
 
-    console.log($(selector).html());
     return $(selector)
       .map((i, element) => this.hash($(element).html()))
       .get();
