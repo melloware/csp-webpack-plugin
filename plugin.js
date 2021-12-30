@@ -6,6 +6,7 @@ const flatten = require('lodash/flatten');
 const isFunction = require('lodash/isFunction');
 const get = require('lodash/get');
 const path = require('path');
+const webpack = require('webpack');
 
 // Attempt to load HtmlWebpackPlugin@4
 // Borrowed from https://github.com/waysact/webpack-subresource-integrity/blob/master/index.js
@@ -96,6 +97,9 @@ class CspHtmlWebpackPlugin {
 
     // the calculated hashes for each file, indexed by filename
     this.hashes = {};
+
+    // special NONCE for PrimeReact inline styles
+    this.primeReactInlineNonce = this.createNonce();
 
     // valid hashes from https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src#Sources
     if (!['sha256', 'sha384', 'sha512'].includes(this.opts.hashingMethod)) {
@@ -360,6 +364,7 @@ class CspHtmlWebpackPlugin {
       'script[src], [data-csp="script-src"]'
     );
     const styleNonce = this.setNonce($, 'style-src', 'link[rel="stylesheet"]');
+    styleNonce.push(`'nonce-${this.primeReactInlineNonce}'`);
 
     // get all shas for inline script and style tags
     const scriptShas = this.getShas($, 'script-src', 'script:not([src])');
@@ -498,6 +503,12 @@ class CspHtmlWebpackPlugin {
         this.addIntegrityAttributes.bind(this, compilation)
       );
     });
+
+    const definitions = {};
+    definitions['process.env.REACT_APP_CSS_NONCE'] = JSON.stringify(
+      this.primeReactInlineNonce
+    );
+    new webpack.DefinePlugin(definitions).apply(compiler);
   }
 }
 

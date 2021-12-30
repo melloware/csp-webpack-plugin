@@ -11,7 +11,7 @@ This plugin was forked from the wonderful work done by [Slack](https://github.co
 
 - Generate SHA hashes for external and internal JS files
 - Configure NONCE for pre-loaded scripts
-- Allow `gizp` to be enabled to SHA can be pre-calculated accounting for GZIP compression
+- Special handling for [PrimeReact](https://www.primefaces.org/primereact/) inline CSS styles
 - Typescript definition
 
 ## Description
