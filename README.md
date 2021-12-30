@@ -102,37 +102,6 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
       - `$`: the `cheerio` object of the html file currently being processed
       - `compilation`: Internal webpack object to manipulate the build
 
-### `HtmlWebpackPlugin`
-
-The plugin also adds a new config option onto each `HtmlWebpackPlugin` instance:
-
-- `{object}` cspPlugin - an object containing the following properties:
-  - `{boolean}` enabled - if false, the CSP tag will be removed from the HTML which this HtmlWebpackPlugin instance is generating.
-  - `{object}` policy - A custom policy which should be applied only to this instance of the HtmlWebpackPlugin
-  - `{object}` hashEnabled - a `<string, boolean>` entry for which policy rules are allowed to include hashes
-  - `{object}` nonceEnabled - a `<string, boolean>` entry for which policy rules are allowed to include nonces
-  - `{Function}` processFn - allows the developer to overwrite the default method of what happens to the CSP after it has been created
-    - Parameters are:
-      - `builtPolicy`: a `string` containing the completed policy;
-      - `htmlPluginData`: the `HtmlWebpackPlugin` `object`;
-      - `$`: the `cheerio` object of the html file currently being processed
-      - `compilation`: Internal webpack object to manipulate the build
-
-### Order of Precedence:
-
-You don't have to include the same policy / `hashEnabled` / `nonceEnabled` configuration object in both `HtmlWebpackPlugin` and `CspHtmlWebpackPlugin`.
-
-- Config included in `CspHtmlWebpackPlugin` will be applied to all instances of `HtmlWebpackPlugin`.
-- Config included in a single `HtmlWebpackPlugin` instantiation will only be applied to that instance.
-
-In the case where a config object is defined in multiple places, it will be merged in the order defined below, with former keys overriding latter. This means entries for a specific rule will not be merged; they will be replaced.
-
-```
-> HtmlWebpackPlugin cspPlugin.policy
-> CspHtmlWebpackPlugin policy
-> CspHtmlWebpackPlugin defaultPolicy
-```
-
 ## Appendix
 
 #### Default Policy:
@@ -169,29 +138,6 @@ In the case where a config object is defined in multiple places, it will be merg
 #### Full Default Configuration:
 
 ```js
-new HtmlWebpackPlugin({
-  cspPlugin: {
-    enabled: true,
-    integrityEnabled: true,
-    primeReactEnabled: true,
-    policy: {
-      'base-uri': "'self'",
-      'object-src': "'none'",
-      'script-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
-      'style-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"]
-    },
-    hashEnabled: {
-      'script-src': true,
-      'style-src': true
-    },
-    nonceEnabled: {
-      'script-src': true,
-      'style-src': true
-    },
-    processFn: defaultProcessFn  // defined in the plugin itself
-  }
-});
-
 new CspHtmlWebpackPlugin({
   'base-uri': "'self'",
   'object-src': "'none'",
@@ -256,6 +202,19 @@ location / {
   include /path/to/webpack/output/nginx-csp-header.conf
 }
 ```
+
+## Publishing
+
+Adjust the version in the `package.json` if necessary, then
+
+```bash
+npm login
+# This will run npm run build automatically
+npm publish --access public
+```
+
+Then upload code to github, create tag & release.
+
 ## Contribution
 
 Contributions are most welcome! Please see the included contributing file for more information.
