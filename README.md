@@ -9,9 +9,9 @@
 
 This plugin was forked from the wonderful work done by [Slack](https://github.com/slackhq/csp-html-webpack-plugin) but adds some key features:
 
-- Generate SHA hashes for external and internal JS files
+- [Subresource Integrity](http://www.w3.org/TR/SRI/) (SRI) is a security feature that enables browsers to verify that files they fetch are delivered without unexpected manipulation.
+- [PrimeReact](https://www.primefaces.org/primereact/) special handling for inline CSS styles
 - Configure NONCE for pre-loaded scripts
-- Special handling for [PrimeReact](https://www.primefaces.org/primereact/) inline CSS styles
 - Typescript definition
 
 ## Description
@@ -90,6 +90,8 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
   - `{boolean|Function}` enabled - if false, or the function returns false, the empty CSP tag will be stripped from the html output.
     - The `htmlPluginData` is passed into the function as it's first param.
     - If `enabled` is set the false, it will disable generating a CSP for all instances of `HtmlWebpackPlugin` in your webpack config.
+  - `{boolean}` integrityEnabled - Enable or disable SHA384  [Subresource Integrity](http://www.w3.org/TR/SRI/)
+  - `{boolean}` primeReactEnabled - Enable or disable custom [PrimeReact](https://www.primefaces.org/primereact/) NONCE value added to the environment for inline styles.
   - `{string}` hashingMethod - accepts 'sha256', 'sha384', 'sha512' - your node version must also accept this hashing method.
   - `{object}` hashEnabled - a `<string, boolean>` entry for which policy rules are allowed to include hashes
   - `{object}` nonceEnabled - a `<string, boolean>` entry for which policy rules are allowed to include nonces
@@ -148,8 +150,10 @@ In the case where a config object is defined in multiple places, it will be merg
 
 ```js
 {
-  enabled: true
-  hashingMethod: 'sha256',
+  enabled: true,
+  integrityEnabled: true,
+  primeReactEnabled: true,
+  hashingMethod: 'sha384',
   hashEnabled: {
     'script-src': true,
     'style-src': true
@@ -168,6 +172,8 @@ In the case where a config object is defined in multiple places, it will be merg
 new HtmlWebpackPlugin({
   cspPlugin: {
     enabled: true,
+    integrityEnabled: true,
+    primeReactEnabled: true,
     policy: {
       'base-uri': "'self'",
       'object-src': "'none'",
@@ -193,7 +199,9 @@ new CspHtmlWebpackPlugin({
   'style-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"]
 }, {
   enabled: true,
-  hashingMethod: 'sha256',
+  integrityEnabled: true,
+  primeReactEnabled: true,
+  hashingMethod: 'sha384',
   hashEnabled: {
     'script-src': true,
     'style-src': true

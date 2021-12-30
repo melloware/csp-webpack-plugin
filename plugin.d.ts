@@ -75,6 +75,14 @@ declare namespace CspHtmlWebpackPlugin {
          */
         enabled?: boolean | ((htmlPluginData: HtmlPluginData) => boolean) | undefined;
         /**
+         * Enable or disable SHA384 subresource integrity
+         */
+        integrityEnabled?: boolean | undefined;
+        /**
+         * Enable or disable custom PrimeReact NONCE value added to the environment for inline styles.
+         */
+        primeReactEnabled?: boolean | undefined;
+        /**
          * The hashing method. Your node version must also accept this hashing
          * method.
          */
