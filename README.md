@@ -10,7 +10,7 @@
 This plugin was forked from the wonderful work done by [Slack](https://github.com/slackhq/csp-html-webpack-plugin) but adds some key features:
 
 - [Subresource Integrity](http://www.w3.org/TR/SRI/) (SRI) is a security feature that enables browsers to verify that files they fetch are delivered without unexpected manipulation. Thanks to [webpack-subresource-integrity](https://www.npmjs.com/package/webpack-subresource-integrity) plugin.
-- [PrimeReact](https://www.primefaces.org/primereact/) special handling for inline CSS styles
+- [PrimeReact](https://www.primefaces.org/primereact/) special handling for inline CSS styles. See [Issue #2423](https://github.com/primefaces/primereact/issues/2423)
 - Configure NONCE for pre-loaded scripts
 - Typescript definition
 - GitHub Actions Build
