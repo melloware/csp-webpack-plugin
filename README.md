@@ -13,6 +13,7 @@ This plugin was forked from the wonderful work done by [Slack](https://github.co
 - [PrimeReact](https://www.primefaces.org/primereact/) special handling for inline CSS styles
 - Configure NONCE for pre-loaded scripts
 - Typescript definition
+- GitHub Actions Build
 
 ## Description
 
