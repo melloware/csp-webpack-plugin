@@ -14,6 +14,7 @@ This plugin was forked from the wonderful work done by [Slack](https://github.co
 - Configure NONCE for pre-loaded scripts
 - Typescript definition
 - GitHub Actions Build
+- Dependabot to keep dependencies up to date
 
 ## Description
 
