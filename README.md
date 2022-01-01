@@ -14,8 +14,7 @@ This plugin was forked from the wonderful work done by [Slack](https://github.co
 - Configure NONCE for pre-loaded scripts
 - Typescript definition
 - Default to SHA384 instead of SHA256
-- GitHub Actions Build
-- Dependabot to keep dependencies up to date
+- GitHub Actions Build and Dependabot to keep dependencies up to date
 
 ## Description
 
