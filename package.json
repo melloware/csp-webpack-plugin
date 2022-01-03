@@ -24,8 +24,11 @@
   "keywords": [
     "webpack",
     "csp",
-    "plugin",
-    "html"
+    "sri",
+    "subresource",
+    "integrity",
+    "html-webpack-plugin",
+    "primereact"
   ],
   "author": "Slack",
   "contributors": [
