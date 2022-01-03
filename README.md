@@ -27,8 +27,8 @@ All inline JS and CSS will be hashed and inserted into the policy.
 
 Install the plugin with npm:
 
-```bash
-npm i --save-dev @melloware/csp-webpack-plugin
+```shell
+$ npm i --save-dev @melloware/csp-webpack-plugin
 ```
 
 ## Basic Usage
