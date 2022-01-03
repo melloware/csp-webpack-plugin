@@ -35,7 +35,7 @@ npm i --save-dev @melloware/csp-webpack-plugin
 
 Include the following in your webpack config:
 
-```js
+```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CspHtmlWebpackPlugin = require('@melloware/csp-webpack-plugin');
 
@@ -57,7 +57,7 @@ By default, the `@melloware/csp-webpack-plugin` has a very lax policy. You shoul
 
 A good starting policy would be the following:
 
-```
+```javascript
 new CspHtmlWebpackPlugin({
   'script-src': '',
   'style-src': ''
@@ -69,7 +69,7 @@ generated in `html-webpack-plugin` for external/inline script and style tags, an
 hashes and nonces to your CSP policy. This configuration will also add a `base-uri` and `object-src` entry
 that exist in the default policy:
 
-```
+```xml
 <meta http-equiv="Content-Security-Policy" content="
   base-uri 'self';
   object-src 'none';
@@ -108,7 +108,7 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
 
 #### Default Policy:
 
-```js
+```javascript
 {
   'base-uri': "'self'",
   'object-src': "'none'",
@@ -119,7 +119,7 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
 
 #### Default Additional Options:
 
-```js
+```javascript
 {
   enabled: true,
   integrityEnabled: true,
@@ -139,7 +139,7 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
 
 #### Full Default Configuration:
 
-```js
+```javascript
 new CspHtmlWebpackPlugin({
   'base-uri': "'self'",
   'object-src': "'none'",
@@ -171,7 +171,7 @@ You can set your own `processFn` callback to make this happen.
 
 In your webpack config:
 
-```js
+```javascript
 const RawSource = require('webpack-sources').RawSource;
 
 function generateNginxHeaderFile(
@@ -209,7 +209,7 @@ location / {
 
 Adjust the version in the `package.json` if necessary, then
 
-```bash
+```shell
 npm login
 # This will run npm run build automatically
 npm publish --access public
