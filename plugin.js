@@ -7,6 +7,7 @@ const isFunction = require('lodash/isFunction');
 const get = require('lodash/get');
 const webpack = require('webpack');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
+const InjectPlugin = require('webpack-inject-plugin').default;
 
 // Attempt to load HtmlWebpackPlugin@4
 // Borrowed from https://github.com/waysact/webpack-subresource-integrity/blob/master/index.js
@@ -59,6 +60,7 @@ const defaultAdditionalOpts = {
   enabled: true,
   integrityEnabled: true,
   primeReactEnabled: true,
+  trustedTypesEnabled: true,
   hashingMethod: 'sha384',
   hashEnabled: {
     'script-src': true,
@@ -391,6 +393,23 @@ class CspHtmlWebpackPlugin {
     // add SHA384 integrity attributes to JS and CSS files
     if (this.opts.enabled && this.opts.integrityEnabled) {
       new SubresourceIntegrityPlugin().apply(compiler);
+    }
+
+    // add default TrustedTypes policy which uses DOMPurify to sanitize HTML
+    if (
+      this.opts.enabled &&
+      this.opts.trustedTypesEnabled &&
+      this.cspPluginPolicy['require-trusted-types-for']
+    ) {
+      const purifyScript = `import DOMPurify from 'dompurify';
+if (window.trustedTypes && window.trustedTypes.createPolicy) { // Feature testing
+    window.trustedTypes.createPolicy('default', {
+        createHTML: (string) => DOMPurify.sanitize(string, {RETURN_TRUSTED_TYPE: true}),
+        createScriptURL: string => string, // allow scripts
+        createScript: string => string // allow scripts
+    });
+}`;
+      new InjectPlugin(() => purifyScript).apply(compiler);
     }
   }
 }

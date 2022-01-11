@@ -10,6 +10,7 @@
 This plugin was forked from the wonderful work done by [Slack](https://github.com/slackhq/csp-html-webpack-plugin) but adds some key features:
 
 - [Subresource Integrity](http://www.w3.org/TR/SRI/) (SRI) is a security feature that enables browsers to verify that files they fetch are delivered without unexpected manipulation. Thanks to [webpack-subresource-integrity](https://www.npmjs.com/package/webpack-subresource-integrity) plugin.
+- [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types) support and use of [DOMPurify](https://www.npmjs.com/package/dompurify) to sanitize any `innerHTML` calls to prevent XSS
 - [PrimeReact](https://www.primefaces.org/primereact/) special handling for inline CSS styles. See [Issue #2423](https://github.com/primefaces/primereact/issues/2423)
 - Configure NONCE for pre-loaded scripts
 - Typescript definition
@@ -94,6 +95,7 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
     - If `enabled` is set the false, it will disable generating a CSP for all instances of `HtmlWebpackPlugin` in your webpack config.
   - `{boolean}` integrityEnabled - Enable or disable SHA384  [Subresource Integrity](http://www.w3.org/TR/SRI/)
   - `{boolean}` primeReactEnabled - Enable or disable custom [PrimeReact](https://www.primefaces.org/primereact/) NONCE value added to the environment for inline styles.
+  - `{boolean}` trustedTypesEnabled - Enable or disable [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types) handling which automatically adds DOMPurify to sanitize `innerHTML` calls to prevent XSS
   - `{string}` hashingMethod - accepts 'sha256', 'sha384', 'sha512' - your node version must also accept this hashing method.
   - `{object}` hashEnabled - a `<string, boolean>` entry for which policy rules are allowed to include hashes
   - `{object}` nonceEnabled - a `<string, boolean>` entry for which policy rules are allowed to include nonces
@@ -103,6 +105,39 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
       - `htmlPluginData`: the `HtmlWebpackPlugin` `object`;
       - `$`: the `cheerio` object of the html file currently being processed
       - `compilation`: Internal webpack object to manipulate the build
+
+## Trusted Types
+
+[Trusted Types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types) is a newer CSP directive which adds XSS protection by preventing `innerHTML` without being trusted.
+
+To add Trusted Type support automatically to your application you would add the `require-trusted-types-for 'script'` CSP directive.
+
+```javascript
+{
+  'base-uri': "'self'",
+  'object-src': "'none'",
+  'script-src': ["'strict-dynamic'"],
+  'style-src': ["'self'"],
+  'require-trusted-types-for': ["'script'"]
+};
+```
+
+If `trustedTypesEnabled=true` this plugin will automatically add a special script which executes before any other script to enable a default policy that sanitizes HTML using DOMPurify.
+
+```javascript
+import DOMPurify from 'dompurify';
+
+if (window.trustedTypes && window.trustedTypes.createPolicy) { // Feature testing
+    window.trustedTypes.createPolicy('default', {
+        createHTML: (string) => DOMPurify.sanitize(string, {RETURN_TRUSTED_TYPE: true}),
+        createScriptURL: string => string, // allow scripts
+        createScript: string => string // allow scripts
+    });
+};
+```
+
+You will need to include DOMPurify and Trusted Types Polyfill using `npm install dompurify trusted-types` to your `package.json`.
+
 
 ## Appendix
 
@@ -124,6 +159,7 @@ This `CspHtmlWebpackPlugin` accepts 2 params with the following structure:
   enabled: true,
   integrityEnabled: true,
   primeReactEnabled: true,
+  trustedTypesEnabled: true,
   hashingMethod: 'sha384',
   hashEnabled: {
     'script-src': true,
@@ -149,6 +185,7 @@ new CspHtmlWebpackPlugin({
   enabled: true,
   integrityEnabled: true,
   primeReactEnabled: true,
+  trustedTypesEnabled: true,
   hashingMethod: 'sha384',
   hashEnabled: {
     'script-src': true,

@@ -38,6 +38,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
     "lodash": "^4.17.20",
+    "webpack-inject-plugin": "^1.5.5",
     "webpack-subresource-integrity": "^5.0.0"
   },
   "peerDependencies": {

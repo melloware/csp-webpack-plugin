@@ -72,16 +72,24 @@ declare namespace CspHtmlWebpackPlugin {
          *   param.
          * * If `enabled` is set the false, it will disable generating a CSP for
          *   all instances of HtmlWebpackPlugin in your webpack config.
+         * @default true
          */
         enabled?: boolean | ((htmlPluginData: HtmlPluginData) => boolean) | undefined;
         /**
-         * Enable or disable SHA384 subresource integrity
+         * Enable or disable SHA384 subresource integrity.
+         * @default true
          */
         integrityEnabled?: boolean | undefined;
         /**
          * Enable or disable custom PrimeReact NONCE value added to the environment for inline styles.
+         * @default true
          */
         primeReactEnabled?: boolean | undefined;
+        /**
+         * Enable or disable Trusted Types default policy to sanitize innerHTML with DOMPurify.
+         * @default true
+         */
+        trustedTypesEnabled?: boolean | undefined;
         /**
          * The hashing method. Your node version must also accept this hashing
          * method.
