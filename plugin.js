@@ -404,8 +404,8 @@ class CspHtmlWebpackPlugin {
       this.cspPluginPolicy['require-trusted-types-for']
     ) {
       const purifyScript = `import DOMPurify from 'dompurify';
-var invalidProtocolRegex=/^([^\w]*)(javascript|data|vbscript)/im,ctrlCharactersRegex=/[\u0000-\u001F\u007F-\u009F\u2000-\u200D\uFEFF]/gim,urlSchemeRegex=/^([^:]+):/gm,relativeFirstCharacters=[".","/"];function isRelativeUrlWithoutProtocol(r){return relativeFirstCharacters.indexOf(r[0])>-1}function sanitizeUrl(r){if(!r)return"about:blank";var e=r.replace(ctrlCharactersRegex,"").trim();if(isRelativeUrlWithoutProtocol(e))return e;var t=e.match(urlSchemeRegex);if(!t)return e;var a=t[0];return invalidProtocolRegex.test(a)?"about:blank":e}
-if (window.trustedTypes && window.trustedTypes.createPolicy) { // Feature testing
+function sanitizeUrl(r){if(!r)return"about:blank";var t=r.replace(/[\u0000-\u001F\u007F-\u009F\u2000-\u200D\uFEFF]/gim,"").trim();if([".","/"].indexOf(t[0])>-1)return t;var a=t.match(/^([^:]+):/gm);if(!a)return t;var u=a[0];return/^([^\w]*)(javascript|data|vbscript)/im.test(u)?"about:blank":t};
+if (window.trustedTypes && window.trustedTypes.createPolicy) {
     window.trustedTypes.createPolicy('default', {
         createHTML: (string) => DOMPurify.sanitize(string, {RETURN_TRUSTED_TYPE: true}),
         createScriptURL: string => sanitizeUrl(string),
