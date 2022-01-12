@@ -130,7 +130,7 @@ import DOMPurify from 'dompurify';
 if (window.trustedTypes && window.trustedTypes.createPolicy) { // Feature testing
     window.trustedTypes.createPolicy('default', {
         createHTML: (string) => DOMPurify.sanitize(string, {RETURN_TRUSTED_TYPE: true}),
-        createScriptURL: string => string, // allow scripts
+        createScriptURL: string => sanitizeUrl(string),
         createScript: string => string // allow scripts
     });
 };
