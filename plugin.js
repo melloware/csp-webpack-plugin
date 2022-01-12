@@ -9,6 +9,8 @@ const webpack = require('webpack');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const InjectPlugin = require('webpack-inject-plugin').default;
 
+/* eslint-disable no-useless-escape */
+
 // Attempt to load HtmlWebpackPlugin@4
 // Borrowed from https://github.com/waysact/webpack-subresource-integrity/blob/master/index.js
 let HtmlWebpackPlugin;
@@ -402,10 +404,11 @@ class CspHtmlWebpackPlugin {
       this.cspPluginPolicy['require-trusted-types-for']
     ) {
       const purifyScript = `import DOMPurify from 'dompurify';
+var invalidProtocolRegex=/^([^\w]*)(javascript|data|vbscript)/im,ctrlCharactersRegex=/[\u0000-\u001F\u007F-\u009F\u2000-\u200D\uFEFF]/gim,urlSchemeRegex=/^([^:]+):/gm,relativeFirstCharacters=[".","/"];function isRelativeUrlWithoutProtocol(r){return relativeFirstCharacters.indexOf(r[0])>-1}function sanitizeUrl(r){if(!r)return"about:blank";var e=r.replace(ctrlCharactersRegex,"").trim();if(isRelativeUrlWithoutProtocol(e))return e;var t=e.match(urlSchemeRegex);if(!t)return e;var a=t[0];return invalidProtocolRegex.test(a)?"about:blank":e}
 if (window.trustedTypes && window.trustedTypes.createPolicy) { // Feature testing
     window.trustedTypes.createPolicy('default', {
         createHTML: (string) => DOMPurify.sanitize(string, {RETURN_TRUSTED_TYPE: true}),
-        createScriptURL: string => string, // allow scripts
+        createScriptURL: string => sanitizeUrl(string),
         createScript: string => string // allow scripts
     });
 }`;
