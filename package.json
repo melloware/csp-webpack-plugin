@@ -1,6 +1,6 @@
 {
   "name": "@melloware/csp-webpack-plugin",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "A plugin which, when combined with HTMLWebpackPlugin, adds CSP tags to the HTML output",
   "main": "plugin.js",
   "types": "plugin.d.ts",
