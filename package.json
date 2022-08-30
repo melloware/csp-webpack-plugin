@@ -46,7 +46,7 @@
     "webpack": "^4 || ^5"
   },
   "devDependencies": {
-    "babel-jest": "^28.0.1",
+    "babel-jest": "^29.0.1",
     "codecov": "^3.8.1",
     "css-loader": "^6.5.1",
     "eslint": "^8.5.0",
