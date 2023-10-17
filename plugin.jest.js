@@ -36,6 +36,10 @@ describe('CspHtmlWebpackPlugin', () => {
       .mockImplementationOnce(() => 'mockedbase64string-4')
       .mockImplementationOnce(() => 'mockedbase64string-5')
       .mockImplementationOnce(() => 'mockedbase64string-6')
+      .mockImplementationOnce(() => 'mockedbase64string-7')
+      .mockImplementationOnce(() => 'mockedbase64string-8')
+      .mockImplementationOnce(() => 'mockedbase64string-9')
+      .mockImplementationOnce(() => 'mockedbase64string-10')
       .mockImplementation(
         () => new Error('Need to add more crypto.randomBytes mocks')
       );
@@ -120,7 +124,7 @@ describe('CspHtmlWebpackPlugin', () => {
             ),
           ]);
 
-        return webpackCompile(
+          return webpackCompile(
             config,
             (_1, _2, _3, errors) => {
               expect(errors[0]).toEqual(
@@ -153,7 +157,7 @@ describe('CspHtmlWebpackPlugin', () => {
         new CspHtmlWebpackPlugin({}, testOptions),
       ]);
 
-    return webpackCompile(config, (csps) => {
+      return webpackCompile(config, (csps) => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
@@ -192,13 +196,15 @@ describe('CspHtmlWebpackPlugin', () => {
           },
         }
       );
+      // the following setting is required for SRI to work:
+      config.output.crossOriginLoading = 'anonymous';
 
-    return webpackCompile(config, (csps) => {
+      return webpackCompile(config, (csps) => {
         const expected =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-IDmpTcnLo5Niek0rbHm9EEQtYiqYHApvDU+Rta9RdVU=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
-          " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-bFK7QzTObijstzDDaq2yN82QIYcoYx/EDD87NWCGiPw=' 'nonce-mockedbase64string-3' 'nonce-mockedbase64string-4'";
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha384-WgET5XoAJGc0It6r8VkXSFPWq9s8fkK6gkP+veIwTd3X+jBr00Jqir+6n2anN3T4' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2' 'nonce-mockedbase64string-3';" +
+          " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha384-ePgPKVdofu2Id6+vq//vnkON0KolpiwbPbJuiALXh1vTb/dXtC/WjAbgcrL5N1wz' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5' 'nonce-mockedbase64string-6' 'nonce-primereact-nonce'";
 
         expect(csps['index.html']).toEqual(expected);
       });
@@ -248,6 +254,7 @@ describe('CspHtmlWebpackPlugin', () => {
           output: {
             path: WEBPACK_OUTPUT_DIR,
             filename: 'index-[name].bundle.js',
+            crossOriginLoading: 'anonymous',
           },
         }
       );
@@ -256,13 +263,13 @@ describe('CspHtmlWebpackPlugin', () => {
         const expected1 =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-Y3RBVJzjgMLd/3xbsXMQc/ZEfadYzG3ndisG/ogf+jQ=' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2';" +
-          " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-3'";
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha384-MNBsDd86ojq/E2ui0CRqhF7X8jLUhjXV09NVZ6oqeq5r0ZHH9345GYhftO9U8yfA' 'nonce-mockedbase64string-1' 'nonce-mockedbase64string-2' 'nonce-mockedbase64string-3';" +
+          " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5' 'nonce-primereact-nonce'";
         const expected2 =
           "base-uri 'self';" +
           " object-src 'none';" +
-          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha256-npoLW6kyIiQHrDdOzxWCi7oMbea1fUsMVFlclhuByTY=' 'nonce-mockedbase64string-4' 'nonce-mockedbase64string-5';" +
-          " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-6'";
+          " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha384-LF8cxUorWv/F9Ftzm+e8te0dhz9zILBuNuJQUQwDdPJopBzXiSUakOVQ+qEnd3yx' 'nonce-mockedbase64string-6' 'nonce-mockedbase64string-7' 'nonce-mockedbase64string-8';" +
+          " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-9' 'nonce-mockedbase64string-10' 'nonce-primereact-nonce'";
 
         expect(csps['index-1.html']).toEqual(expected1);
         expect(csps['index-2.html']).toEqual(expected2);
@@ -560,8 +567,8 @@ describe('CspHtmlWebpackPlugin', () => {
           const expectedDefault =
             "base-uri 'self';" +
             " object-src 'none';" +
-            " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-mockedbase64string-2';" +
-            " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha384-rGumVytQRHlFeUsbLx6mhENgPUXD3Vs9nl5eV91pTDa+fYTdj7pa8SEoS7lKrmRe' 'nonce-primereact-nonce'";
+            " script-src 'unsafe-inline' 'self' 'unsafe-eval' 'sha384-rGumVytQRHlFeUsbLx6mhENgPUXD3Vs9nl5eV91pTDa+fYTdj7pa8SEoS7lKrmRe' 'nonce-mockedbase64string-2';" +
+            " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-primereact-nonce'";
 
           expect(csps['index-csp.html']).toEqual(expectedCustom);
           expect(csps['index-no-csp.html']).toEqual(expectedDefault);
@@ -599,15 +606,17 @@ describe('CspHtmlWebpackPlugin', () => {
           },
         }
       );
+      // the following setting is required for SRI to work:
+      config.output.crossOriginLoading = 'anonymous';
 
-    return webpackCompile(config, (_, html) => {
+      return webpackCompile(config, (_, html) => {
         const scripts = html['index.html']('script[src]');
         const styles = html['index.html']('link[rel="stylesheet"]');
 
         scripts.each((i, script) => {
           if (!script.attribs.src.startsWith('http')) {
             expect(script.attribs.integrity).toEqual(
-              'sha256-IDmpTcnLo5Niek0rbHm9EEQtYiqYHApvDU+Rta9RdVU='
+              'sha384-WgET5XoAJGc0It6r8VkXSFPWq9s8fkK6gkP+veIwTd3X+jBr00Jqir+6n2anN3T4'
             );
           } else {
             expect(script.attribs.integrity).toBeUndefined();
@@ -616,7 +625,7 @@ describe('CspHtmlWebpackPlugin', () => {
         styles.each((i, style) => {
           if (!style.attribs.href.startsWith('http')) {
             expect(style.attribs.integrity).toEqual(
-              'sha256-bFK7QzTObijstzDDaq2yN82QIYcoYx/EDD87NWCGiPw='
+              'sha384-ePgPKVdofu2Id6+vq//vnkON0KolpiwbPbJuiALXh1vTb/dXtC/WjAbgcrL5N1wz'
             );
           } else {
             expect(style.attribs.integrity).toBeUndefined();
@@ -653,6 +662,9 @@ describe('CspHtmlWebpackPlugin', () => {
           },
         }
       );
+
+      // the following setting is required for SRI to work:
+      config.output.crossOriginLoading = 'anonymous';
 
       return webpackCompile(config, (_, html) => {
         const scripts = html['index.html']('script:not([src])');
@@ -943,7 +955,6 @@ describe('CspHtmlWebpackPlugin', () => {
       return webpackCompile(config, (csps, selectors) => {
         expect(csps['index.html']).toBeUndefined();
         expect(selectors['index.html']('meta').length).toEqual(1);
-        
       });
     });
 
@@ -984,7 +995,6 @@ describe('CspHtmlWebpackPlugin', () => {
         expect(selectors['index-disabled.html']('[integrity]').length).toEqual(
           0
         );
-        
       });
     });
   });
@@ -1012,7 +1022,6 @@ describe('CspHtmlWebpackPlugin', () => {
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-primereact-nonce'";
 
         expect(csps['index.html']).toEqual(expected);
-        
       });
     });
 
@@ -1038,7 +1047,6 @@ describe('CspHtmlWebpackPlugin', () => {
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-primereact-nonce'";
 
         expect(csps['index.html']).toEqual(expected);
-        
       });
     });
 
@@ -1058,7 +1066,6 @@ describe('CspHtmlWebpackPlugin', () => {
           " style-src 'unsafe-inline' 'self' 'unsafe-eval' 'nonce-primereact-nonce'";
 
         expect(csps['index.html']).toEqual(expected);
-        
       });
     });
 
@@ -1083,8 +1090,6 @@ describe('CspHtmlWebpackPlugin', () => {
         expect(metaTags[0].attribs['http-equiv']).toEqual(
           'Content-Security-Policy'
         );
-
-        
       });
     });
   });
@@ -1214,8 +1219,6 @@ describe('CspHtmlWebpackPlugin', () => {
 
         // A file has been generated
         expect(cspFileContent).toEqual(index1BuiltPolicy);
-
-        
       });
     });
   });
@@ -1240,7 +1243,6 @@ describe('CspHtmlWebpackPlugin', () => {
         expect($('body').html().trim()).toEqual(
           '&lt;h1&gt;Escaped Content&lt;h1&gt;'
         );
-        
       });
     });
 

@@ -29,12 +29,32 @@ function webpackCompile(
     instance.run((err, stats) => {
       // test no error or warning
       if (!expectError) {
+        if (err) {
+          reject(err);
+          return;
+        }
         try {
-          expect(err).toBeFalsy();
           expect(stats.compilation.errors.length).toEqual(0);
+        } catch (e) {
+          reject(
+            new Error(
+              `Webpack compilation errors: ${stats.compilation.errors.join(
+                '\n'
+              )}`
+            )
+          );
+          return;
+        }
+        try {
           expect(stats.compilation.warnings.length).toEqual(0);
         } catch (e) {
-          reject(e);
+          reject(
+            new Error(
+              `Webpack compilation warnings: ${stats.compilation.warnings.join(
+                '\n'
+              )}`
+            )
+          );
         }
       }
 
@@ -59,7 +79,9 @@ function webpackCompile(
         const $ = htmlFilesCheerio[file];
         return {
           ...obj,
-          [file]: $('meta[http-equiv="Content-Security-Policy"]').attr('content'),
+          [file]: $('meta[http-equiv="Content-Security-Policy"]').attr(
+            'content'
+          ),
         };
       }, {});
 
