@@ -21,50 +21,84 @@ function webpackCompile(
   callbackFn,
   { fs = null, expectError = false } = {}
 ) {
-  const instance = webpack(webpackConfig);
+  return new Promise((resolve, reject) => {
+    const instance = webpack(webpackConfig);
 
-  const fileSystem = fs || new MemoryFs();
-  instance.outputFileSystem = fileSystem;
-  instance.run((err, stats) => {
-    // test no error or warning
-    if (!expectError) {
-      expect(err).toBeFalsy();
-      expect(stats.compilation.errors.length).toEqual(0);
-      expect(stats.compilation.warnings.length).toEqual(0);
-    }
+    const fileSystem = fs || new MemoryFs();
+    instance.outputFileSystem = fileSystem;
+    instance.run((err, stats) => {
+      // test no error or warning
+      if (!expectError) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        try {
+          expect(stats.compilation.errors.length).toEqual(0);
+        } catch (e) {
+          reject(
+            new Error(
+              `Webpack compilation errors: ${stats.compilation.errors.join(
+                '\n'
+              )}`
+            )
+          );
+          return;
+        }
+        try {
+          expect(stats.compilation.warnings.length).toEqual(0);
+        } catch (e) {
+          reject(
+            new Error(
+              `Webpack compilation warnings: ${stats.compilation.warnings.join(
+                '\n'
+              )}`
+            )
+          );
+        }
+      }
 
-    // file all html files and convert them into cheerio objects so they can be queried
-    const htmlFilesCheerio = fileSystem
-      .readdirSync(WEBPACK_OUTPUT_DIR)
-      .filter((file) => file.endsWith('.html'))
-      .reduce(
-        (obj, file) => ({
+      // file all html files and convert them into cheerio objects so they can be queried
+      const htmlFilesCheerio = fileSystem
+        .readdirSync(WEBPACK_OUTPUT_DIR)
+        .filter((file) => file.endsWith('.html'))
+        .reduce(
+          (obj, file) => ({
+            ...obj,
+            [file]: cheerio.load(
+              fileSystem
+                .readFileSync(path.join(WEBPACK_OUTPUT_DIR, file))
+                .toString()
+            ),
+          }),
+          {}
+        );
+
+      // find all csps from the cheerio objects
+      const csps = Object.keys(htmlFilesCheerio).reduce((obj, file) => {
+        const $ = htmlFilesCheerio[file];
+        return {
           ...obj,
-          [file]: cheerio.load(
-            fileSystem
-              .readFileSync(path.join(WEBPACK_OUTPUT_DIR, file))
-              .toString()
+          [file]: $('meta[http-equiv="Content-Security-Policy"]').attr(
+            'content'
           ),
-        }),
-        {}
-      );
+        };
+      }, {});
 
-    // find all csps from the cheerio objects
-    const csps = Object.keys(htmlFilesCheerio).reduce((obj, file) => {
-      const $ = htmlFilesCheerio[file];
-      return {
-        ...obj,
-        [file]: $('meta[http-equiv="Content-Security-Policy"]').attr('content'),
-      };
-    }, {});
-
-    callbackFn(
-      csps,
-      htmlFilesCheerio,
-      fileSystem,
-      stats.compilation.errors,
-      stats.compilation.warnings
-    );
+      try {
+        resolve(
+          callbackFn(
+            csps,
+            htmlFilesCheerio,
+            fileSystem,
+            stats.compilation.errors,
+            stats.compilation.warnings
+          )
+        );
+      } catch (e) {
+        reject(e);
+      }
+    });
   });
 }
 
