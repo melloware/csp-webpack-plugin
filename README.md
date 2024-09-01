@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/@melloware%2Fcsp-webpack-plugin.svg)](https://badge.fury.io/js/@melloware%2Fcsp-webpack-plugin)
-[![Code Style](https://img.shields.io/badge/code%20style-prettier-brightgreen.svg)](https://github.com/prettier/prettier)
+![NPM Downloads](https://img.shields.io/npm/dm/@melloware%2Fcsp-webpack-plugin?color=purple)
 [![Build Status](https://github.com/melloware/csp-webpack-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/melloware/csp-webpack-plugin/actions/workflows/build.yml)
 
 ## About
